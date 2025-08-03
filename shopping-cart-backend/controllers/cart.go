@@ -8,7 +8,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// AddToCart adds or updates an item in the user's cart
 func AddToCart(c *gin.Context) {
 	userID := c.GetUint("user_id")
 
@@ -43,7 +42,6 @@ func AddToCart(c *gin.Context) {
 	c.JSON(http.StatusCreated, gin.H{"message": "Item added to cart"})
 }
 
-// GetCart returns the user's cart with items
 func GetCart(c *gin.Context) {
 	userID := c.GetUint("user_id")
 
@@ -58,7 +56,6 @@ func GetCart(c *gin.Context) {
 	c.JSON(http.StatusOK, cart)
 }
 
-// UpdateCartQuantity updates the quantity of a specific item in the cart
 func UpdateCartQuantity(c *gin.Context) {
 	userID := c.GetUint("user_id")
 

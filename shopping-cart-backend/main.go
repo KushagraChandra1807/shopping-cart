@@ -13,12 +13,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// 🔄 One-time cleanup function to remove duplicate items (same name + price)
 func removeDuplicateItems() {
 	var items []models.Item
 	config.DB.Find(&items)
 
-	seen := make(map[string]uint) // key = name_price, value = ID
+	seen := make(map[string]uint)
 	var duplicates []uint
 
 	for _, item := range items {
@@ -48,13 +47,11 @@ func insertItemIfNotExists(name string, price int) {
 }
 
 func main() {
-	// ✅ Connect to DB
+
 	config.ConnectDB()
 
-	// 🧹 Run one-time duplicate cleanup (comment out after first successful run)
 	removeDuplicateItems()
 
-	// ✅ Insert default items ONLY if they don't already exist
 	insertItemIfNotExists("T-Shirt", 299)
 	insertItemIfNotExists("Sneakers", 1599)
 	insertItemIfNotExists("Jeans", 799)
@@ -63,10 +60,8 @@ func main() {
 	insertItemIfNotExists("Apple Watch", 31999)
 	insertItemIfNotExists("AirPods Pro", 24999)
 
-	// ✅ Create Gin engine
 	r := gin.Default()
 
-	// ✅ Setup CORS middleware for 5173
 	r.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"http://localhost:5173"},
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
@@ -76,7 +71,6 @@ func main() {
 		MaxAge:           12 * time.Hour,
 	}))
 
-	// ✅ Handle preflight OPTIONS requests
 	r.OPTIONS("/*path", func(c *gin.Context) {
 		c.Writer.Header().Set("Access-Control-Allow-Origin", "http://localhost:5173")
 		c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
@@ -84,10 +78,8 @@ func main() {
 		c.AbortWithStatus(204)
 	})
 
-	// ✅ Register routes
 	routes.SetupRoutes(r)
 
-	// ✅ Start server
 	if err := r.Run(":8080"); err != nil {
 		panic("❌ Failed to start server: " + err.Error())
 	}

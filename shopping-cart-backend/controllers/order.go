@@ -8,7 +8,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// CreateOrder handles POST /orders
 func CreateOrder(c *gin.Context) {
 	userID := c.GetUint("user_id")
 
@@ -43,7 +42,6 @@ func CreateOrder(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Order placed successfully", "order_id": order.ID})
 }
 
-// GetOrders handles GET /orders
 func GetOrders(c *gin.Context) {
 	userID := c.GetUint("user_id")
 

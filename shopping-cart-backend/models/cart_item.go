@@ -8,5 +8,5 @@ type CartItem struct {
 	ItemID   uint
 	Quantity int
 
-	Item Item `gorm:"foreignKey:ItemID"` // ✅ Add this line to enable Preload
+	Item Item `gorm:"foreignKey:ItemID"`
 }

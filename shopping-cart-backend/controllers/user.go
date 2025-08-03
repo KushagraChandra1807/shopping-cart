@@ -10,7 +10,6 @@ import (
 
 var jwtSecret = []byte("your-secret-key")
 
-// ✅ Hardcoded LoginUser for "testuser"
 func LoginUser(c *gin.Context) {
 	var req struct {
 		Username string `json:"username"`

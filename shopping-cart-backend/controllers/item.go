@@ -9,7 +9,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// CreateItem handles POST /items
 func CreateItem(c *gin.Context) {
 	var item models.Item
 
@@ -28,7 +27,6 @@ func CreateItem(c *gin.Context) {
 	c.JSON(http.StatusCreated, item)
 }
 
-// GetItems handles GET /items
 func GetItems(c *gin.Context) {
 	var items []models.Item
 	config.DB.Find(&items)
